@@ -1,0 +1,241 @@
+{
+  "shop": {
+    "rate": 1.3,
+    "minEach": 6,
+    "minQty": 15,
+    "whatsapp": "9804317376",
+    "minSheets": 5
+  },
+  "text": {
+    "title": "Custom vinyl stickers, printed in Biratnagar.",
+    "lead": "Waterproof, scratch-resistant and cut to your shape. Pick a size, see the price instantly, and send your design on WhatsApp.",
+    "footer": "Print N Stick · Budhiganga, Biratnagar, Nepal. Custom printing and stickers."
+  },
+  "sizes": [
+    {
+      "id": "s2",
+      "label": "Small (2\")",
+      "inches": 2,
+      "use": "Phone cases, helmets and tight spots."
+    },
+    {
+      "id": "s3",
+      "label": "Medium (3\")",
+      "inches": 3,
+      "use": "Water bottles, laptops and notebooks."
+    },
+    {
+      "id": "s4",
+      "label": "Large (4\")",
+      "inches": 4,
+      "use": "Tumblers, tablets and bike frames."
+    },
+    {
+      "id": "s5",
+      "label": "X-large (5\")",
+      "inches": 5,
+      "use": "Helmets, coolers, shop windows and boxes."
+    }
+  ],
+  "materials": [
+    {
+      "id": "m1",
+      "name": "Glossy vinyl",
+      "mult": 1
+    },
+    {
+      "id": "m2",
+      "name": "Matte vinyl",
+      "mult": 1.1
+    },
+    {
+      "id": "m3",
+      "name": "Clear vinyl",
+      "mult": 1.2
+    },
+    {
+      "id": "m4",
+      "name": "Holographic",
+      "mult": 1.6
+    },
+    {
+      "id": "m5",
+      "name": "Glitter",
+      "mult": 1.6
+    }
+  ],
+  "qty": [
+    {
+      "n": 15
+    },
+    {
+      "n": 25
+    },
+    {
+      "n": 50
+    },
+    {
+      "n": 100
+    },
+    {
+      "n": 250
+    },
+    {
+      "n": 500
+    },
+    {
+      "n": 1000
+    }
+  ],
+  "tiers": [
+    {
+      "min": 100,
+      "off": 10
+    },
+    {
+      "min": 250,
+      "off": 20
+    },
+    {
+      "min": 500,
+      "off": 30
+    },
+    {
+      "min": 1000,
+      "off": 38
+    }
+  ],
+  "faq": [
+    {
+      "q": "What file should I send?",
+      "a": "PNG, JPG, PDF, SVG or AI. A 300 DPI file with a transparent background gives the best result."
+    },
+    {
+      "q": "Are the stickers waterproof?",
+      "a": "Yes. Vinyl stickers resist water, scratches and sunlight, so they work on bottles, bikes and shop signs."
+    },
+    {
+      "q": "What is the minimum order?",
+      "a": "15 stickers. The price per sticker drops as the quantity goes up."
+    },
+    {
+      "q": "Can I see a proof first?",
+      "a": "Yes. We send a mockup and only print after you approve it."
+    },
+    {
+      "q": "What sizes can you make?",
+      "a": "From 0.5\" to 14\". Use the custom size box in the price calculator."
+    }
+  ],
+  "admin": {
+    "h": "c5b36d658b145a8abe57d0e09125735053b5bdb5d0f1b3d0f9af02afafaed45d"
+  },
+  "cuts": [
+    {
+      "id": "c1",
+      "name": "Die cut",
+      "mult": 1.15,
+      "sheet": false,
+      "desc": "Cut around your design. Each sticker is separate and ready to peel and stick."
+    },
+    {
+      "id": "c2",
+      "name": "Kiss cut",
+      "mult": 1,
+      "sheet": true,
+      "desc": "Only the vinyl is cut. Stickers stay on a backing sheet, so they are easy to hand out and peel."
+    },
+    {
+      "id": "c3",
+      "name": "Sticker sheet",
+      "mult": 1,
+      "sheet": false,
+      "sheets": true,
+      "desc": "Many stickers on one sheet. Choose A4, A5 or A6."
+    }
+  ],
+  "shapes": [
+    {
+      "id": "h1",
+      "name": "Circle",
+      "mult": 1,
+      "rect": false,
+      "look": "circle"
+    },
+    {
+      "id": "h2",
+      "name": "Square",
+      "mult": 1,
+      "rect": false,
+      "look": "square"
+    },
+    {
+      "id": "h3",
+      "name": "Rectangle",
+      "mult": 1,
+      "rect": true,
+      "look": "square"
+    },
+    {
+      "id": "h4",
+      "name": "Custom shape",
+      "mult": 1.25,
+      "rect": true,
+      "look": "blob"
+    }
+  ],
+  "sheets": [
+    {
+      "id": "p4",
+      "name": "A4",
+      "w": 210,
+      "h": 297,
+      "price": 200
+    },
+    {
+      "id": "p5",
+      "name": "A5",
+      "w": 148,
+      "h": 210,
+      "price": 110
+    },
+    {
+      "id": "p6",
+      "name": "A6",
+      "w": 105,
+      "h": 148,
+      "price": 60
+    }
+  ],
+  "sheetQty": [
+    {
+      "n": 5
+    },
+    {
+      "n": 10
+    },
+    {
+      "n": 25
+    },
+    {
+      "n": 50
+    },
+    {
+      "n": 100
+    }
+  ],
+  "sheetTiers": [
+    {
+      "min": 25,
+      "off": 5
+    },
+    {
+      "min": 50,
+      "off": 10
+    },
+    {
+      "min": 100,
+      "off": 15
+    }
+  ]
+}

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1b1340">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Print N Stick">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" href="icon-192.png">
+<title>Print N Stick – Custom vinyl stickers</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fffdf7;--ink:#1b1340;--mute:#5d5780;--card:#ffffff;--line:#e6e0cf;--yel:#ffd23f;--pink:#ff4f8b;--teal:#12a898;--on-yel:#1b1340;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#130e2b;--ink:#fff8e1;--mute:#b5afd6;--card:#1d1740;--line:#352d63}}
+:root[data-theme="dark"]{--bg:#130e2b;--ink:#fff8e1;--mute:#b5afd6;--card:#1d1740;--line:#352d63}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Figtree,system-ui,sans-serif}
+h1,h2,h3{font-family:'Bricolage Grotesque',Figtree,sans-serif;line-height:1.1;margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.logo{font:800 22px 'Bricolage Grotesque',sans-serif;display:flex;align-items:center;gap:10px}
+.logo i{width:30px;height:30px;border-radius:9px;background:var(--pink);display:inline-block;transform:rotate(-8deg);box-shadow:3px 3px 0 var(--yel)}
+.nav a{color:var(--ink);text-decoration:none;margin-left:18px;font-weight:500}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:start;padding:24px 0 56px}
+.hero h1{font-size:clamp(36px,6vw,62px);font-weight:800;letter-spacing:-.02em}
+.hero p.lead{font-size:18px;color:var(--mute);max-width:46ch;margin:16px 0 0}
+.stage{margin-top:28px;border:2px dashed var(--line);border-radius:22px;min-height:290px;display:grid;place-items:center;background:
+repeating-conic-gradient(var(--line) 0 25%,transparent 0 50%) 0 0/22px 22px;position:relative;overflow:hidden}
+.stk{position:relative;aspect-ratio:1;border-radius:24%;border:7px solid #fff;background:linear-gradient(135deg,var(--pink),var(--yel));
+display:grid;place-items:center;font:800 16px 'Bricolage Grotesque',sans-serif;color:var(--on-yel);text-align:center;line-height:1.1;
+box-shadow:0 10px 24px rgba(27,19,64,.28);transition:width .25s ease,height .25s ease;transform:rotate(-5deg);overflow:hidden}
+.stk::after{content:"";position:absolute;right:0;bottom:0;width:30%;height:30%;background:linear-gradient(315deg,var(--bg) 50%,rgba(255,255,255,.7) 50%);border-top-left-radius:12px;box-shadow:-3px -3px 6px rgba(0,0,0,.15)}
+.stage small{position:absolute;left:14px;bottom:10px;color:var(--mute);font-size:13px;background:var(--bg);padding:2px 8px;border-radius:99px}
+.card{background:var(--card);border:2px solid var(--ink);border-radius:20px;padding:24px;box-shadow:7px 7px 0 var(--ink)}
+.card h2{font-size:26px;margin-bottom:4px}
+.card .sub{color:var(--mute);margin:0 0 18px;font-size:15px}
+.lbl{display:block;font-weight:700;margin:16px 0 8px;font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:2px solid var(--line);background:transparent;color:var(--ink);border-radius:12px;padding:8px 14px;font:600 15px Figtree,sans-serif;cursor:pointer}
+.chip[aria-pressed="true"]{border-color:var(--ink);background:var(--yel);color:#1b1340}
+.chip:focus-visible,input:focus-visible,select:focus-visible,.btn:focus-visible,summary:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+input,select{width:100%;padding:11px 12px;border:2px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:500 16px Figtree,sans-serif}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.total{margin-top:20px;background:var(--ink);color:#fff8e1;border-radius:16px;padding:16px 18px;display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.total b{font:800 34px 'Bricolage Grotesque',sans-serif;color:var(--yel)}
+.total span{font-size:14px;opacity:.85}
+.save{color:var(--teal);font-weight:700;font-size:14px;min-height:22px;margin-top:8px}
+.btn{display:block;text-align:center;text-decoration:none;margin-top:14px;background:var(--pink);color:#fff;font:700 17px Figtree,sans-serif;padding:14px;border-radius:14px;border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.note{font-size:13px;color:var(--mute);margin-top:12px}
+section{padding:48px 0;border-top:2px solid var(--line)}
+section h2{font-size:clamp(28px,4vw,40px);margin-bottom:10px}
+section p.sub2{color:var(--mute);max-width:60ch;margin:0 0 26px}
+.sizes{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.size{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.size .s{background:linear-gradient(135deg,var(--teal),var(--yel));border:5px solid #fff;border-radius:24%;aspect-ratio:1;box-shadow:0 6px 14px rgba(27,19,64,.2);align-self:flex-start}
+.size h3{font-size:20px}.size p{margin:0;color:var(--mute);font-size:15px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:s;padding:0;list-style:none;margin:0}
+.steps li{counter-increment:s;background:var(--card);border:2px solid var(--line);border-radius:18px;padding:18px}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--yel);color:#1b1340;font:800 17px 'Bricolage Grotesque',sans-serif;margin-bottom:10px}
+.steps b{display:block;margin-bottom:4px}.steps span{color:var(--mute);font-size:15px}
+.promise{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.promise div{padding:20px;border-radius:18px;background:var(--yel);color:#1b1340}
+.promise div:nth-child(2){background:var(--pink);color:#fff}.promise div:nth-child(3){background:var(--teal);color:#fff}
+.promise b{font:800 26px 'Bricolage Grotesque',sans-serif;display:block}
+details{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:14px 18px;margin-bottom:10px}
+summary{cursor:pointer;font-weight:700}details p{margin:10px 0 0;color:var(--mute)}
+footer{border-top:2px solid var(--line);padding:30px 0 40px;color:var(--mute);font-size:15px}
+@media(max-width:860px){.hero{grid-template-columns:1fr}.sizes,.steps{grid-template-columns:1fr 1fr}.promise{grid-template-columns:1fr}.nav a:not(:last-child){display:none}}
+@media(max-width:480px){.sizes,.steps{grid-template-columns:1fr}.row{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.stk{transition:none}}
+
+.offer{background:var(--yel);color:#1b1340;border-radius:12px;padding:10px 14px;margin:0 0 6px;font-size:15px}
+.lnk{background:none;border:0;padding:0;color:inherit;font:700 inherit Figtree,sans-serif;text-decoration:underline;cursor:pointer}
+.err{color:var(--pink);font-weight:700;font-size:14px;min-height:20px;margin-top:8px}
+.chip.on{background:var(--pink);color:#fff;border-color:var(--ink)}
+button.btn{width:100%;cursor:pointer}
+#authBox{display:inline-flex;gap:8px;margin-left:18px}
+.ov{position:fixed;inset:0;background:rgba(19,14,43,.6);display:grid;place-items:center;padding:16px;z-index:50}
+.mb{position:relative;background:var(--card);color:var(--ink);border:2px solid var(--ink);border-radius:20px;padding:24px;width:min(440px,100%);max-height:90vh;overflow:auto}
+.mb h2{font-size:26px;margin:0 0 6px}.xb{position:absolute;right:14px;top:14px}
+.ol{border:2px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;font-size:14px}
+#admin.open{position:fixed;inset:0;background:var(--bg);z-index:60;overflow:hidden;padding-top:env(safe-area-inset-top,0px)}
+.ap{height:100%;display:flex;flex-direction:column;max-width:900px;margin:0 auto;padding:14px 16px}
+.ah{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.ah h2{font-size:26px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.tb{flex:1;overflow:auto;padding-bottom:40px}.tb h3{margin:22px 0 8px;font-size:20px}
+.ar{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px}
+label.al{display:flex;flex-direction:column;gap:4px;font-weight:700;font-size:13px;flex:1 1 150px}
+textarea{width:100%;padding:10px;border:2px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:500 15px Figtree,sans-serif}
+.sheet{display:grid;place-items:center;transition:padding .2s}.sheet.kiss{background:#fff;padding:14px;border-radius:12px;border:1px solid var(--line);box-shadow:0 8px 20px rgba(27,19,64,.2)}
+input[type=checkbox]{width:22px;height:22px;padding:0}
+.stk.paper{background-color:#fff;border:3px solid var(--line);background-image:radial-gradient(circle at 25% 25%,var(--pink) 0 20%,transparent 21%),radial-gradient(circle at 75% 75%,var(--teal) 0 20%,transparent 21%),radial-gradient(circle at 75% 25%,var(--yel) 0 18%,transparent 19%);background-size:34px 34px}.stk.paper span{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="logo"><i></i>Print N Stick</div>
+  <nav class="nav"><a href="#sizes">Sizes</a><a href="#how">How it works</a><a href="#faq">FAQ</a><a href="#order">Get a price</a></nav>
+</header>
+
+<main>
+<div class="hero" id="order">
+  <div>
+    <h1 id="h1">Custom vinyl stickers, printed in Biratnagar.</h1>
+    <p class="lead" id="lead">Waterproof, scratch-resistant and cut to your shape. Pick a size, see the price instantly, and send your design on WhatsApp.</p>
+    <div class="stage" aria-label="Sticker size preview">
+      <div class="sheet" id="sheet"><div class="stk" id="stk"><span>Your<br>design<br>here</span></div></div>
+      <small id="stkNote">3 inch sticker, shown to scale</small>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Price your stickers</h2>
+    <p class="sub" id="minNote">Minimum order is 15 stickers.</p>
+
+    <span class="lbl">Cut type</span>
+    <div class="chips" id="cutChips"></div>
+    <p class="note" id="cutNote" style="margin:6px 0 0"></p>
+    <div id="shapeBox"><span class="lbl">Shape</span><div class="chips" id="shapeChips"></div></div>
+    <div id="sheetBox" hidden><span class="lbl">Sheet size</span><div class="chips" id="sheetChips"></div></div>
+    <div id="sizeBox">
+      <span class="lbl">Size</span>
+      <div class="chips" id="sizeChips"></div>
+      <label class="lbl" for="custom">Or custom size (inches)</label>
+      <input id="custom" type="number" min="0.5" max="14" step="0.5" placeholder="0.5 to 14">
+    </div>
+    <div id="rectBox" hidden>
+      <div class="row">
+        <div><label class="lbl" for="rw">Width (inches)</label><input id="rw" type="number" min="0.5" max="14" step="0.5" value="3"></div>
+        <div><label class="lbl" for="rh">Height (inches)</label><input id="rh" type="number" min="0.5" max="14" step="0.5" value="2"></div>
+      </div>
+    </div>
+    <label class="lbl" for="mat">Material</label>
+    <select id="mat"></select>
+
+    <label class="lbl" for="qty">Quantity</label>
+    <div class="chips" id="qtyChips">
+      <button class="chip" data-v="25" aria-pressed="false">25</button>
+      <button class="chip" data-v="50" aria-pressed="false">50</button>
+      <button class="chip" data-v="100" aria-pressed="true">100</button>
+      <button class="chip" data-v="250" aria-pressed="false">250</button>
+      <button class="chip" data-v="500" aria-pressed="false">500</button>
+    </div>
+    <input id="qty" type="number" min="15" step="1" value="100" style="margin-top:10px" aria-label="Quantity">
+
+    <div class="total" aria-live="polite">
+      <div><span>Total</span><br><b id="tot">Rs 0</b></div>
+      <div style="text-align:right"><span id="per">Rs 0 each</span></div>
+    </div>
+    <div class="save" id="save"></div>
+
+    <div class="row"><div><label class="lbl" for="nm">Your name</label><input id="nm" type="text" autocomplete="name" placeholder="Name"></div><div><label class="lbl" for="ph">Phone</label><input id="ph" type="tel" autocomplete="tel" placeholder="98XXXXXXXX"></div></div>
+    <div class="err" id="oerr"></div><a class="btn" id="wa" href="#" target="_blank" rel="noopener">Place order on WhatsApp</a>
+    <p class="note">Prices are estimates. We confirm the final price after seeing your design, and you approve a proof before we print.</p>
+  </div>
+</div>
+
+<section id="sizes">
+  <h2>Which size should I pick?</h2>
+  <p class="sub2">Not sure? Match the size to where the sticker will go.</p>
+  <div class="sizes" id="sizeCards"></div>
+</section>
+
+<section id="how">
+  <h2>From design to doorstep</h2>
+  <p class="sub2">Four steps, and you see the proof before anything is printed.</p>
+  <ol class="steps">
+    <li><b>Send your design</b><span>PNG, PDF, AI or SVG. Higher resolution gives sharper edges.</span></li>
+    <li><b>Check the proof</b><span>We send a mockup so you can approve the size and colors.</span></li>
+    <li><b>We print and cut</b><span>Your stickers are printed on vinyl and cut to shape.</span></li>
+    <li><b>Pick up or delivery</b><span>Collect at the shop or we send it to you.</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2>What you get</h2>
+  <p class="sub2">&nbsp;</p>
+  <div class="promise">
+    <div><b>Waterproof</b>Vinyl that handles rain, spills and washing.</div>
+    <div><b>Free proof</b>Approve the design before we print.</div>
+    <div><b>Small orders welcome</b>Start from just 15 stickers.</div>
+  </div>
+</section>
+
+<section id="faq">
+  <h2>Questions</h2>
+  <p class="sub2">&nbsp;</p>
+  <div id="faqList"></div>
+</section>
+</main>
+
+<footer><span id="foot">Print N Stick · Budhiganga, Biratnagar, Nepal. Custom printing and stickers.</span><br><button class="lnk" data-act="admin">Admin</button></footer>
+</div>
+
+<script id="cfg" type="application/json">{"shop": {"rate": 1.3, "minEach": 6, "minQty": 15, "whatsapp": "9804317376", "minSheets": 5}, "text": {"title": "Custom vinyl stickers, printed in Biratnagar.", "lead": "Waterproof, scratch-resistant and cut to your shape. Pick a size, see the price instantly, and send your design on WhatsApp.", "footer": "Print N Stick · Budhiganga, Biratnagar, Nepal. Custom printing and stickers."}, "sizes": [{"id": "s2", "label": "Small (2\")", "inches": 2, "use": "Phone cases, helmets and tight spots."}, {"id": "s3", "label": "Medium (3\")", "inches": 3, "use": "Water bottles, laptops and notebooks."}, {"id": "s4", "label": "Large (4\")", "inches": 4, "use": "Tumblers, tablets and bike frames."}, {"id": "s5", "label": "X-large (5\")", "inches": 5, "use": "Helmets, coolers, shop windows and boxes."}], "materials": [{"id": "m1", "name": "Glossy vinyl", "mult": 1}, {"id": "m2", "name": "Matte vinyl", "mult": 1.1}, {"id": "m3", "name": "Clear vinyl", "mult": 1.2}, {"id": "m4", "name": "Holographic", "mult": 1.6}, {"id": "m5", "name": "Glitter", "mult": 1.6}], "qty": [{"n": 15}, {"n": 25}, {"n": 50}, {"n": 100}, {"n": 250}, {"n": 500}, {"n": 1000}], "tiers": [{"min": 100, "off": 10}, {"min": 250, "off": 20}, {"min": 500, "off": 30}, {"min": 1000, "off": 38}], "faq": [{"q": "What file should I send?", "a": "PNG, JPG, PDF, SVG or AI. A 300 DPI file with a transparent background gives the best result."}, {"q": "Are the stickers waterproof?", "a": "Yes. Vinyl stickers resist water, scratches and sunlight, so they work on bottles, bikes and shop signs."}, {"q": "What is the minimum order?", "a": "15 stickers. The price per sticker drops as the quantity goes up."}, {"q": "Can I see a proof first?", "a": "Yes. We send a mockup and only print after you approve it."}, {"q": "What sizes can you make?", "a": "From 0.5\" to 14\". Use the custom size box in the price calculator."}], "admin": {"h": "c5b36d658b145a8abe57d0e09125735053b5bdb5d0f1b3d0f9af02afafaed45d"}, "cuts": [{"id": "c1", "name": "Die cut", "mult": 1.15, "sheet": false, "desc": "Cut around your design. Each sticker is separate and ready to peel and stick."}, {"id": "c2", "name": "Kiss cut", "mult": 1, "sheet": true, "desc": "Only the vinyl is cut. Stickers stay on a backing sheet, so they are easy to hand out and peel."}, {"id": "c3", "name": "Sticker sheet", "mult": 1, "sheet": false, "sheets": true, "desc": "Many stickers on one sheet. Choose A4, A5 or A6."}], "shapes": [{"id": "h1", "name": "Circle", "mult": 1, "rect": false, "look": "circle"}, {"id": "h2", "name": "Square", "mult": 1, "rect": false, "look": "square"}, {"id": "h3", "name": "Rectangle", "mult": 1, "rect": true, "look": "square"}, {"id": "h4", "name": "Custom shape", "mult": 1.25, "rect": true, "look": "blob"}], "sheets": [{"id": "p4", "name": "A4", "w": 210, "h": 297, "price": 200}, {"id": "p5", "name": "A5", "w": 148, "h": 210, "price": 110}, {"id": "p6", "name": "A6", "w": 105, "h": 148, "price": 60}], "sheetQty": [{"n": 5}, {"n": 10}, {"n": 25}, {"n": 50}, {"n": 100}], "sheetTiers": [{"min": 25, "off": 5}, {"min": 50, "off": 10}, {"min": 100, "off": 15}]}</script>
+<div id="modal"></div>
+<div id="admin"></div>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var cfg=JSON.parse($('cfg').textContent);
+var authed=false,adminOpen=false,tab='Pricing',sel={size:null,qty:100,mat:null,cut:null,shape:null,sheet:null};
+var TABS=['Pricing','Cuts & shapes','Sticker sheets','Sizes','Materials','Quantities','Content','Security'];
+var NEW={sheets:function(){return{id:'p'+Date.now(),name:'New sheet',w:100,h:150,price:50}},sheetQty:function(){return{n:10}},sheetTiers:function(){return{min:25,off:5}},cuts:function(){return{id:'c'+Date.now(),name:'New cut type',mult:1,sheet:false,desc:'Describe this cut'}},shapes:function(){return{id:'h'+Date.now(),name:'New shape',mult:1,rect:false,look:'square'}},sizes:function(){return{id:'s'+Date.now(),label:'New size',inches:3,use:'Where it is used'}},materials:function(){return{id:'m'+Date.now(),name:'New material',mult:1}},qty:function(){return{n:50}},tiers:function(){return{min:100,off:5}},faq:function(){return{q:'Question',a:'Answer'}}};
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function rs(n){return 'Rs '+Math.round(n).toLocaleString('en-IN')}
+function find(a,id){return a.filter(function(x){return x.id===id})[0]}
+function getp(o,p){return p.split('.').reduce(function(a,k){return a&&a[k]},o)}
+function setp(o,p,v){var k=p.split('.'),l=k.pop();k.reduce(function(a,x){return a[x]},o)[l]=v}
+function hash(p){try{return crypto.subtle.digest('SHA-256',new TextEncoder().encode('pns:'+p)).then(function(b){return Array.prototype.map.call(new Uint8Array(b),function(x){return('0'+x.toString(16)).slice(-2)}).join('')})}catch(e){return Promise.resolve(btoa('pns:'+p))}}
+
+/* ---------- public page ---------- */
+function minQ(){var c=find(cfg.cuts,sel.cut);return c&&c.sheets?cfg.shop.minSheets:cfg.shop.minQty}
+function inches(){if(sel.size==='custom')return parseFloat($('custom').value)||0;var x=find(cfg.sizes,sel.size);return x?x.inches:0}
+function renderChips(){
+  var f=function(a,id){return find(a,id)?id:(a[0]?a[0].id:null)};
+  if(sel.size!=='custom')sel.size=f(cfg.sizes,sel.size);
+  sel.mat=f(cfg.materials,sel.mat);sel.cut=f(cfg.cuts,sel.cut);sel.shape=f(cfg.shapes,sel.shape);sel.sheet=f(cfg.sheets,sel.sheet);
+  var cu=find(cfg.cuts,sel.cut),sh=find(cfg.shapes,sel.shape),sp=!!(cu&&cu.sheets),rc=!!(sh&&sh.rect&&!sp),mq=minQ();
+  var chip=function(k,id,on,t){return'<button class="chip" data-'+k+'="'+esc(id)+'" aria-pressed="'+on+'">'+esc(t)+'</button>'};
+  $('cutChips').innerHTML=cfg.cuts.map(function(x){return chip('cut',x.id,x.id===sel.cut,x.name)}).join('');
+  $('shapeChips').innerHTML=cfg.shapes.map(function(x){return chip('shape',x.id,x.id===sel.shape,x.name)}).join('');
+  $('sheetChips').innerHTML=cfg.sheets.map(function(x){return chip('sheet',x.id,x.id===sel.sheet,x.name)}).join('');
+  $('sizeChips').innerHTML=cfg.sizes.map(function(x){return chip('size',x.id,x.id===sel.size,x.label)}).join('');
+  $('qtyChips').innerHTML=(sp?cfg.sheetQty:cfg.qty).map(function(x){return chip('qty',x.n,x.n==sel.qty,x.n)}).join('');
+  $('mat').innerHTML=cfg.materials.map(function(x){return'<option value="'+esc(x.id)+'"'+(x.id===sel.mat?' selected':'')+'>'+esc(x.name)+'</option>'}).join('');
+  $('cutNote').textContent=cu?cu.desc:'';
+  $('shapeBox').hidden=sp;$('sizeBox').hidden=sp||rc;$('rectBox').hidden=!rc;$('sheetBox').hidden=!sp;
+  $('qty').min=mq;$('minNote').textContent='Minimum order is '+mq+(sp?' sheets':' stickers')+'. Bigger orders cost less per '+(sp?'sheet.':'sticker.');
+}
+function renderPublic(){
+  var s=cfg.shop,t=cfg.text;
+  $('h1').textContent=t.title;$('lead').textContent=t.lead;$('foot').textContent=t.footer;
+  $('minNote').textContent='Minimum order is '+s.minQty+' stickers. Bigger orders cost less per sticker.';
+  $('qty').min=s.minQty;
+  $('sizeCards').innerHTML=cfg.sizes.map(function(x){return'<div class="size"><div class="s" style="width:'+Math.round(18+x.inches*14)+'px"></div><h3>'+esc(x.label)+'</h3><p>'+esc(x.use)+'</p></div>'}).join('');
+  $('faqList').innerHTML=cfg.faq.map(function(x){return'<details><summary>'+esc(x.q)+'</summary><p>'+esc(x.a)+'</p></details>'}).join('');
+  renderChips();calc();
+}
+function calc(){
+  var s=cfg.shop,cu=find(cfg.cuts,sel.cut)||{name:'-',mult:1,sheets:false},sp=!!cu.sheets,q=Math.max(minQ(),Math.floor(sel.qty)||minQ());
+  var m=find(cfg.materials,sel.mat),mult=m?m.mult:1,bulk=0,st=$('stk'),each,dim,size;
+  (sp?cfg.sheetTiers:cfg.tiers).slice().sort(function(a,b){return b.min-a.min}).some(function(t){if(q>=t.min){bulk=t.off;return true}});
+  if(sp){
+    var p=find(cfg.sheets,sel.sheet)||{name:'-',w:210,h:297,price:0},k=Math.min(0.75,230/Math.max(p.w,p.h));
+    each=p.price*mult*cu.mult*(1-bulk/100);
+    st.className='stk paper';st.style.width=Math.max(34,p.w*k)+'px';st.style.aspectRatio=p.w+'/'+p.h;st.style.borderRadius='6px';
+    dim=p.name+' ('+p.w+' x '+p.h+' mm)';size='Sheet size: '+dim;
+    $('stkNote').textContent=p.name+' sticker sheet, '+cu.name.toLowerCase();
+  }else{
+    var sh=find(cfg.shapes,sel.shape)||{name:'-',mult:1,rect:false,look:'square'},cl=function(v){return Math.min(14,Math.max(0.5,v||0.5))},w,h;
+    if(sh.rect){w=cl(parseFloat($('rw').value));h=cl(parseFloat($('rh').value))}else{w=h=cl(inches())}
+    each=Math.max(s.minEach,w*h*s.rate)*mult*cu.mult*sh.mult*(1-bulk/100);
+    var k2=Math.min(36,220/Math.max(w,h));
+    st.className='stk';st.style.width=Math.max(34,w*k2)+'px';st.style.aspectRatio=w+'/'+h;
+    st.style.borderRadius=sh.look==='circle'?'50%':sh.look==='blob'?'42% 58% 55% 45% / 52% 40% 60% 48%':'14%';
+    dim=sh.rect?w+' x '+h:String(w);size='Shape: '+sh.name+'\nSize: '+dim+' inch';
+    $('stkNote').textContent=dim+' inch '+sh.name.toLowerCase()+', '+cu.name.toLowerCase();
+  }
+  var total=each*q,unit=sp?'sheet':'sticker';
+  $('sheet').className='sheet'+(cu.sheet?' kiss':'');
+  $('tot').textContent=rs(total);$('per').textContent=rs(each)+' per '+unit;
+  $('save').textContent=bulk?'Bulk discount applied: '+bulk+'% off':'Order more to unlock bulk discounts';
+  var text='Cut type: '+cu.name+'\n'+size+'\nMaterial: '+(m?m.name:'-')+'\nQuantity: '+q+(sp?' sheets':'')+'\nEstimated total: '+rs(total);
+  $('wa').href='https://wa.me/'+(s.whatsapp||'')+'?text='+encodeURIComponent('Hello Print N Stick! I want to order stickers.\nName: '+($('nm').value||'-')+'\nPhone: '+($('ph').value||'-')+'\n'+text+'\nI will send my design here.');
+}
+$('wa').addEventListener('click',function(e){
+  if(!$('nm').value.trim()||!$('ph').value.trim()){e.preventDefault();$('oerr').textContent='Please enter your name and phone number.';($('nm').value.trim()?$('ph'):$('nm')).focus();return}
+  $('oerr').textContent='';calc();
+});
+
+/* ---------- admin ---------- */
+function modal(h){$('modal').innerHTML=h?'<div class="ov"><div class="mb" role="dialog" aria-modal="true"><button class="chip xb" data-act="close">Close</button>'+h+'</div></div>':''}
+function askPw(){modal('<h2>Admin login</h2><p class="sub">Enter the admin password to edit the shop.</p><form id="pf"><label class="lbl" for="apw">Password</label><input id="apw" name="pw" type="password" autocomplete="current-password" required><div class="err" id="aerr"></div><button class="btn" type="submit">Log in</button></form>');var f=$('apw');if(f)f.focus()}
+document.addEventListener('submit',function(e){
+  if(e.target.id!=='pf')return;e.preventDefault();
+  hash(e.target.elements['pw'].value).then(function(h){
+    if(h===cfg.admin.h){authed=true;adminOpen=true;modal('');renderAdmin()}
+    else $('aerr').textContent='Wrong password. Try again.';
+  });
+});
+function inp(path,label,type){
+  var v=getp(cfg,path),d='data-p="'+path+'"',c;
+  if(type==='area')c='<textarea rows="2" '+d+'>'+esc(v)+'</textarea>';
+  else if(type==='check')c='<input type="checkbox" '+d+(v?' checked':'')+'>';
+  else if(type==='look')c='<select '+d+'>'+[['circle','Circle'],['square','Rounded square'],['blob','Free-form']].map(function(o){return'<option value="'+o[0]+'"'+(o[0]===v?' selected':'')+'>'+o[1]+'</option>'}).join('')+'</select>';
+  else c='<input '+d+' type="'+(type||'text')+'" step="any" value="'+esc(v)+'">';
+  return'<label class="al">'+label+c+'</label>';
+}
+function rows(key,fields,add){
+  return cfg[key].map(function(it,i){return'<div class="ar">'+fields.map(function(f){return inp(key+'.'+i+'.'+f[0],f[1],f[2])}).join('')+'<button class="chip" data-del="'+key+'" data-i="'+i+'">Remove</button></div>'}).join('')+'<button class="chip on" data-add="'+key+'">+ '+add+'</button>';
+}
+function adminBody(){
+  if(tab==='Pricing')return'<div class="ar">'+inp('shop.rate','Price per square inch (Rs)','number')+inp('shop.minEach','Lowest price per sticker (Rs)','number')+inp('shop.minQty','Minimum order quantity','number')+inp('shop.whatsapp','WhatsApp number with country code, e.g. 9779800000000')+'</div><h3>Bulk discounts</h3>'+rows('tiers',[['min','From quantity','number'],['off','Discount %','number']],'Add discount tier');
+  if(tab==='Cuts & shapes')return'<h3>Cut types</h3>'+rows('cuts',[['name','Name'],['mult','Price multiplier','number'],['sheet','Stickers stay on a backing sheet','check'],['sheets','Sold as sticker sheets (A4, A5, A6)','check'],['desc','Description shown to customers','area']],'Add cut type')+'<h3>Shapes</h3>'+rows('shapes',[['name','Name'],['mult','Price multiplier','number'],['rect','Customer enters width and height','check'],['look','Preview look','look']],'Add shape');
+  if(tab==='Sticker sheets')return'<h3>Sheet sizes and prices</h3>'+rows('sheets',[['name','Sheet name'],['w','Width (mm)','number'],['h','Height (mm)','number'],['price','Price per sheet (Rs)','number']],'Add sheet size')+'<h3>Quick-pick sheet quantities</h3>'+rows('sheetQty',[['n','Sheets','number']],'Add quantity')+'<h3>Sheet bulk discounts</h3>'+rows('sheetTiers',[['min','From sheets','number'],['off','Discount %','number']],'Add discount tier')+'<div class="ar">'+inp('shop.minSheets','Minimum sheets per order','number')+'</div>';
+  if(tab==='Sizes')return rows('sizes',[['label','Name'],['inches','Inches','number'],['use','Used for']],'Add size');
+  if(tab==='Materials')return rows('materials',[['name','Name'],['mult','Price multiplier (1 = base price)','number']],'Add material');
+  if(tab==='Quantities')return rows('qty',[['n','Quick-pick quantity','number']],'Add quantity');
+  if(tab==='Content')return inp('text.title','Headline')+inp('text.lead','Intro text','area')+inp('text.footer','Footer text')+'<h3>FAQ</h3>'+rows('faq',[['q','Question'],['a','Answer','area']],'Add question');
+  return'<h3>Change admin password</h3><div class="ar"><label class="al">New password (at least 6 characters)<input id="npw" type="password" autocomplete="new-password"></label><label class="al">Confirm new password<input id="npw2" type="password" autocomplete="new-password"></label><button class="chip on" data-act="setpw">Change password</button></div><div class="err" id="perr"></div><p class="note">After changing it, press Download config.json and upload it to your website so the new password works for everyone.</p>';
+}
+function renderAdmin(keep){
+  var a=$('admin');
+  if(!authed||!adminOpen){a.innerHTML='';a.className='';return}
+  var st=$('pst')?$('pst').textContent:'',sc=a.querySelector('.tb')?a.querySelector('.tb').scrollTop:0;
+  a.className='open';
+  a.innerHTML='<div class="ap"><div class="ah"><h2>Admin panel</h2><div><button class="chip on" data-act="pub">Download config.json</button> <button class="chip" data-act="aclose">Close</button></div></div><div id="pst" class="note">'+esc(st||'Changes show on this device right away. Press Download config.json, then upload that file to your website so all customers see them.')+'</div><div class="tabs">'+TABS.map(function(t){return'<button class="chip" data-tab="'+t+'" aria-pressed="'+(t===tab)+'">'+t+'</button>'}).join('')+'</div><div class="tb">'+adminBody()+'</div></div>';
+  if(keep)a.querySelector('.tb').scrollTop=sc;
+}
+function buildHtml(){
+  var c=document.documentElement.cloneNode(true);
+  ['modal','admin','sheetChips','cutChips','shapeChips','cutNote','sizeChips','qtyChips','mat','sizeCards','faqList'].forEach(function(id){var e=c.querySelector('#'+id);if(e){e.innerHTML='';if(id==='admin')e.className=''}});
+  c.removeAttribute('data-theme');
+  c.querySelector('#cfg').textContent=JSON.stringify(cfg).replace(/</g,'\\u003c');
+  return'<!DOCTYPE html>\n'+c.outerHTML;
+}
+function publish(){
+  var st=$('pst');
+  try{var b=new Blob([JSON.stringify(cfg,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='config.json';document.body.appendChild(a);a.click();a.remove();st.textContent='config.json downloaded. Upload it to your website (replace the old config.json) so all customers see the changes.'}
+  catch(e){st.textContent='Could not create the file.'}
+}
+function setPw(){
+  var a=$('npw').value,b=$('npw2').value,er=$('perr');
+  if(a.length<6){er.textContent='Password must be at least 6 characters.';return}
+  if(a!==b){er.textContent='The two passwords do not match.';return}
+  hash(a).then(function(h){cfg.admin.h=h;er.textContent='';$('npw').value='';$('npw2').value='';$('pst').textContent='Password changed here. Press Download config.json and upload it to your website to save it for everyone.'});
+}
+$('admin').addEventListener('input',function(e){
+  var t=e.target,p=t.dataset.p;if(!p)return;
+  var v=t.type==='number'?parseFloat(t.value):t.type==='checkbox'?t.checked:t.value;
+  if(t.type==='number'&&isNaN(v))return;
+  setp(cfg,p,v);renderPublic();
+});
+
+/* ---------- events ---------- */
+document.addEventListener('click',function(e){
+  var t=e.target;
+  if(t.classList&&t.classList.contains('ov')){modal('');return}
+  var b=t.closest&&t.closest('button');if(!b)return;var d=b.dataset;
+  if(d.cut){var o=find(cfg.cuts,sel.cut),nw=find(cfg.cuts,d.cut);sel.cut=d.cut;if(!!(o&&o.sheets)!==!!(nw&&nw.sheets)){sel.qty=nw&&nw.sheets?(cfg.sheetQty[1]||cfg.sheetQty[0]||{n:10}).n:100;$('qty').value=sel.qty}renderChips();calc();return}
+  if(d.sheet){sel.sheet=d.sheet;renderChips();calc();return}
+  if(d.shape){sel.shape=d.shape;renderChips();calc();return}
+  if(d.size){sel.size=d.size;$('custom').value='';renderChips();calc();return}
+  if(d.qty){sel.qty=parseInt(d.qty,10);$('qty').value=sel.qty;renderChips();calc();return}
+  if(d.tab){tab=d.tab;renderAdmin();return}
+  if(d.add){cfg[d.add].push(NEW[d.add]());renderAdmin(true);renderPublic();return}
+  if(d.del){cfg[d.del].splice(parseInt(d.i,10),1);renderAdmin(true);renderPublic();return}
+  var a=d.act;if(!a)return;
+  if(a==='close')modal('');
+  else if(a==='admin'){if(authed){adminOpen=true;renderAdmin()}else askPw()}
+  else if(a==='aclose'){adminOpen=false;renderAdmin()}
+  else if(a==='pub')publish();
+  else if(a==='setpw')setPw();
+});
+$('custom').addEventListener('input',function(){sel.size=this.value?'custom':(cfg.sizes[0]?cfg.sizes[0].id:null);renderChips();calc()});
+$('qty').addEventListener('input',function(){sel.qty=parseInt(this.value,10)||0;renderChips();calc()});
+$('qty').addEventListener('blur',function(){if(sel.qty<minQ()){sel.qty=minQ();this.value=sel.qty;renderChips();calc()}});
+$('mat').addEventListener('change',function(){sel.mat=this.value;calc()});
+$('rw').addEventListener('input',calc);$('rh').addEventListener('input',calc);$('nm').addEventListener('input',calc);$('ph').addEventListener('input',calc);
+renderPublic();
+fetch('config.json',{cache:'no-cache'}).then(function(r){return r.ok?r.json():null}).then(function(c){if(c&&c.shop&&c.admin){cfg=c;renderPublic()}}).catch(function(){});
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
+})();
+</script>
+</body>
+</html>
