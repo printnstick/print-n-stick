@@ -3,7 +3,7 @@
     "rate": 1.3,
     "minEach": 6,
     "minQty": 15,
-    "whatsapp": "9804317376",
+    "whatsapp": "+9779804317376",
     "minSheets": 5
   },
   "text": {
@@ -242,7 +242,7 @@
   ],
   "brand": {
     "name": "Print N Stick",
-    "logo": "",
+    "logo": "images/logo-mvroepka.png",
     "showName": true
   },
   "features": [
@@ -263,6 +263,46 @@
     }
   ],
   "promos": [],
-  "products": [],
-  "categories": []
+  "products": [
+    {
+      "id": "g1793165228562",
+      "name": "Pirate Compass",
+      "category": "k1793165194970",
+      "size": "2 inch",
+      "price": 15,
+      "oldPrice": 0,
+      "inStock": true,
+      "desc": "High Quality Stickers",
+      "image": "images/p-g1793165228562-image-mvrobryx.jpg",
+      "image2": "",
+      "image3": ""
+    },
+    {
+      "id": "g1793165327194",
+      "name": "Messi_holding_ball",
+      "category": "k1793165194970",
+      "size": "3 inch",
+      "price": 30,
+      "oldPrice": 0,
+      "inStock": true,
+      "desc": "",
+      "image": "images/p-g1793165327194-image-mvrodczm.jpg",
+      "image2": "",
+      "image3": ""
+    }
+  ],
+  "categories": [
+    {
+      "id": "k1793165194970",
+      "name": "Vinyl Sticker"
+    },
+    {
+      "id": "k1793165203395",
+      "name": "Glossy Photo Sticker"
+    },
+    {
+      "id": "k1793165214170",
+      "name": "Lable Sticker"
+    }
+  ]
 }
